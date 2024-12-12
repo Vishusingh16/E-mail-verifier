@@ -7,9 +7,17 @@ import (
 	"net"
 	"os"
 	"strings"
+	"net/http"
 )
 
 func main() {
+
+	http.HandleFunc("/api/signup", signupHandler)
+	http.HandleFunc("/api/login", loginHandler)
+
+	// Start the server
+	log.Println("Server starting on port 8080...")
+	log.Fatal(http.ListenAndServe(":8080", nil))
 	scanner := bufio.NewScanner(os.Stdin)
 	fmt.Printf("domain, hasMX, hasSPF, spfRecord, hasDMARC, dmarcRecord\n")
 
